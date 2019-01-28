@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/art_item"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-
+    android:layout_height="350dp"
+    android:layout_marginEnd="10dp"
     app:cardCornerRadius="2dp"
     app:cardMaxElevation="1dp"
     app:cardElevation="0.7dp"
@@ -21,17 +21,23 @@
         <TextView
             android:id="@+id/name_art"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
+            android:text="Name"/>
 
         <TextView
             android:id="@+id/author_art"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Author"/>
 
         <ImageView
             android:id="@+id/image_art"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"/>
     </LinearLayout>
 
