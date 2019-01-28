@@ -38,7 +38,9 @@ class FeedFragment : Fragment(), FeedContract.View{
         feedPresenter.loadArts(false)
 
         swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
             feedPresenter.loadArts(true)
+            swipeRefreshLayout.isRefreshing = false
         }
 
         return view

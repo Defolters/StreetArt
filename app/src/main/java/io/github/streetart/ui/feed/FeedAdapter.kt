@@ -17,7 +17,8 @@ class FeedAdapter (private val context: Context, private var data: List<Artwork>
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.author.text = data!![position].artists.joinToString()
+        holder.author.text = data!![position].artists[0].name
+//        holder.author.text = data!![position].artists.joinToString()
         holder.name.text = data!![position].name
         if (!data!![position].photos.isNullOrEmpty()) {
             holder.image.loadImage(data!![position].photos[0].image)
