@@ -5,31 +5,38 @@
     android:id="@+id/art_item"
     android:layout_width="match_parent"
     android:layout_height="350dp"
-    app:cardCornerRadius="2dp"
     app:contentPaddingBottom="0dp"
-    app:cardPreventCornerOverlap="true"
-    >
+    android:layout_marginTop="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?android:selectableItemBackground">
 
-        <TextView
-            android:id="@+id/name_art"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/black"
-            android:text="Name"/>
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/author_art"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Author"/>
+            <TextView
+                android:id="@+id/name_art"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/name"/>
+
+            <TextView
+                android:id="@+id/author_art"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/author"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/image_art"
