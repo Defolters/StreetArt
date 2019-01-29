@@ -11,6 +11,6 @@ interface FeedContract {
 
     interface Presenter {
         fun loadArts(forceUpdate: Boolean)
-        fun openArtDetails(requestedArtId: Artwork)
+        fun openArtDetails(requestedArt: Artwork)
     }
 }
