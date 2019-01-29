@@ -43,7 +43,6 @@ class FeedFragment : Fragment(), FeedContract.View{
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = true
             feedPresenter.loadArts(true)
-            swipeRefreshLayout.isRefreshing = false
         }
 
         return view
@@ -54,9 +53,11 @@ class FeedFragment : Fragment(), FeedContract.View{
         val layoutManager = LinearLayoutManager(activity as Context)
         artsRecyclerView.layoutManager = layoutManager
 
-        val feedAdapter = FeedAdapter(context!!, artworks, feedPresenter)
+        val feedAdapter = FeedAdapter(artworks, feedPresenter)
         feedAdapter.notifyDataSetChanged()
         artsRecyclerView.adapter = feedAdapter
+
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showArtDetails(requestedArtId: String) {
@@ -65,7 +66,6 @@ class FeedFragment : Fragment(), FeedContract.View{
             putExtra(DetailActivity.ART_ID, requestedArtId)
         }
         startActivity(intent)
-
     }
 
     companion object {

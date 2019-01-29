@@ -1,13 +1,17 @@
 package io.github.streetart.data
 
-import io.github.streetart.network.model.Artist
-import io.github.streetart.network.model.Artwork
-import io.github.streetart.network.model.Location
-import io.github.streetart.network.model.Photo
+import android.util.Log
+import com.google.gson.Gson
+import io.github.streetart.network.RetrofitClient
+import io.github.streetart.network.model.*
+import io.paperdb.Paper
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ArtsRepository : ArtsDataSource{
 
-    val artworks = mutableListOf<Artwork>()
+    var artworks = mutableListOf<Artwork>()
 
     init {
         val artwork = Artwork()
@@ -50,6 +54,11 @@ class ArtsRepository : ArtsDataSource{
     }
 
     override fun getArts(forceUpdate: Boolean, callback: ArtsDataSource.LoadArtsCallback) {
+        if (forceUpdate) {
+            loadFromRemote(callback)
+        } else {
+            loadFromCache(callback)
+        }
         callback.onArtsLoaded(artworks)
     }
 
@@ -69,6 +78,44 @@ class ArtsRepository : ArtsDataSource{
                 return it
         }
         return null
+    }
+
+    private fun loadFromCache(callback: ArtsDataSource.LoadArtsCallback) {
+        val cache = Paper.book().read<String>("cache")
+
+        if (!(cache.isNullOrBlank() || cache == "null")) {
+            val newArtworks = Gson().fromJson<Artworks>(cache, Artworks::class.java)
+            artworks = newArtworks
+
+            callback.onArtsLoaded(newArtworks)
+        } else {
+            loadFromRemote(callback)
+        }
+
+    }
+
+    private fun loadFromRemote(callback: ArtsDataSource.LoadArtsCallback) {
+
+        RetrofitClient().getArtworksEndpoint().getArtworks().enqueue(object: Callback<Artworks> {
+            override fun onResponse(call: Call<Artworks>, response: Response<Artworks>) {
+
+                if (response.body() == null) {
+                    return
+                }
+
+                val newArtworks = response.body()!!
+                artworks = newArtworks
+
+                Paper.book().write("cache", Gson().toJson(response.body()))
+
+                callback.onArtsLoaded(newArtworks)
+            }
+
+            override fun onFailure(call: Call<Artworks>, t: Throwable) {
+                Log.d("ARTS_REPOSITORY", "onFailure\n"+t)
+            }
+        })
+
     }
 
     companion object {

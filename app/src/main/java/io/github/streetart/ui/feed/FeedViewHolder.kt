@@ -10,7 +10,7 @@ import io.github.streetart.R
 
 
 
-class FeedViewHolder(context: Context, itemView: View)
+class FeedViewHolder(itemView: View)
     : RecyclerView.ViewHolder(itemView) {
 
     val image: ImageView

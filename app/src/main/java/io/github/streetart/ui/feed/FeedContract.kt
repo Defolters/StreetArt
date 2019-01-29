@@ -6,7 +6,6 @@ interface FeedContract {
     interface View {
         fun showArts(artworks: List<Artwork>)
         fun showArtDetails(requestedArtId: String)
-
     }
 
     interface Presenter {

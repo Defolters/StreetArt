@@ -1,20 +1,21 @@
 package io.github.streetart.ui.feed
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.github.streetart.R
 import io.github.streetart.loadImage
 import io.github.streetart.network.model.Artwork
 
-class FeedAdapter (private val context: Context, private var data: List<Artwork>?, private val presenter: FeedPresenter)
+class FeedAdapter (
+    private var data: List<Artwork>?,
+    private val presenter: FeedPresenter
+)
     : RecyclerView.Adapter<FeedViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): FeedViewHolder {
         val rootView = LayoutInflater.from(parent.context).inflate(R.layout.art_item, parent, false)
-        return FeedViewHolder(this.context, rootView)
+        return FeedViewHolder(rootView)
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
@@ -31,7 +32,6 @@ class FeedAdapter (private val context: Context, private var data: List<Artwork>
         }
 
         holder.item.setOnClickListener {
-            Log.d("FEED_ADAPTER", "$position item clicked")
             presenter.openArtDetails(data!![position])
         }
     }
@@ -40,11 +40,11 @@ class FeedAdapter (private val context: Context, private var data: List<Artwork>
         return data?.size ?: 0
     }
 
-//    override fun getItemId(position: Int): Long {
-//        return super.getItemId(position)
-//    }
-//
-//    override fun getItemViewType(position: Int): Int {
-//        return super.getItemViewType(position)
-//    }
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 }

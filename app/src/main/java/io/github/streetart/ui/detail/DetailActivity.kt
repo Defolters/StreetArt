@@ -19,7 +19,7 @@ class DetailActivity : AppCompatActivity() {
         if (detailFragment == null) {
             detailFragment = DetailFragment.newInstance(requestedArtId)
             supportFragmentManager.beginTransaction()
-                .add(R.id.detail_frame, detailFragment!!, DETAIL_FRAGMENT_TAG).commit()
+                .add(R.id.detail_frame, detailFragment, DETAIL_FRAGMENT_TAG).commit()
         }
         else {
             supportFragmentManager.beginTransaction().show(detailFragment as Fragment)
