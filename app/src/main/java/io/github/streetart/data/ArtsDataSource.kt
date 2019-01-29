@@ -19,6 +19,4 @@ interface ArtsDataSource {
     fun getArts(forceUpdate: Boolean ,callback: LoadArtsCallback)
 
     fun getArt(id: String, callback: GetArtCallback)
-
-    fun clearAllArts()
 }

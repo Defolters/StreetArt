@@ -39,18 +39,10 @@ class ArtsRepository : ArtsDataSource{
         artwork2.location = location2
 
         val artwork3 = Artwork()
-        artwork3.name = "title"
         artwork3.id = "32"
-        artwork3.description = "Text description"
         val photo3 = Photo()
         photo3.image = "https://pp.userapi.com/c850432/v850432621/9e94b/KStEsVr6Ckg.jpg"
         artwork3.photos.add(photo3)
-        val artist3 = Artist()
-        artist3.name = "Mark"
-        artwork3.artists.add(artist3)
-        val location3 = Location()
-        location3.address = "NY Street"
-        artwork3.location = location3
 
         artworks.add(artwork)
         artworks.add(artwork2)
@@ -69,10 +61,6 @@ class ArtsRepository : ArtsDataSource{
         } else {
             callback.onFailed()
         }
-    }
-
-    override fun clearAllArts() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun findArt(id: String) : Artwork? {

@@ -53,11 +53,21 @@ class DetailFragment : Fragment(), DetailContract.View {
 
     override fun showArt(artwork: Artwork) {
         with(artwork) {
-            nameTextView.text = name
-            authorTextView.text = artists[0].name
-            descriptionTextView.text = description
-            addressTextView.text = location.address
-            imageView.loadImage(photos[0].image)
+            if (!name.isNullOrBlank()){
+                nameTextView.text = name
+            }
+            if (!artists.isNullOrEmpty()) {
+                authorTextView.text = artists[0].name
+            }
+            if (!description.isNullOrBlank()) {
+                descriptionTextView.text = description
+            }
+            if (location != null) {
+                addressTextView.text = location.address
+            }
+            if (!photos.isNullOrEmpty()) {
+                imageView.loadImage(photos[0].image)
+            }
             // map set coordinates
         }
 
