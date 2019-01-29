@@ -9,7 +9,7 @@ import io.github.streetart.R
 import io.github.streetart.loadImage
 import io.github.streetart.network.model.Artwork
 
-class FeedAdapter (private val context: Context, private var data: List<Artwork>?)
+class FeedAdapter (private val context: Context, private var data: List<Artwork>?, private val presenter: FeedPresenter)
     : RecyclerView.Adapter<FeedViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): FeedViewHolder {
@@ -18,7 +18,10 @@ class FeedAdapter (private val context: Context, private var data: List<Artwork>
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-//        holder.author.text = data!![position].artists[0].name
+        if (!data!![position].artists.isNullOrEmpty()) {
+            holder.author.text = data!![position].artists[0].name
+        }
+
 //        holder.author.text = data!![position].artists.joinToString()
         holder.name.text = data!![position].name
         if (!data!![position].photos.isNullOrEmpty()) {
@@ -27,6 +30,7 @@ class FeedAdapter (private val context: Context, private var data: List<Artwork>
 
         holder.item.setOnClickListener {
             Log.d("FEED_ADAPTER", "$position item clicked")
+            presenter.openArtDetails(data!![position])
         }
     }
 

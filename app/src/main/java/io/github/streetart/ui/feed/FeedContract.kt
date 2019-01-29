@@ -5,12 +5,12 @@ import io.github.streetart.network.model.Artwork
 interface FeedContract {
     interface View {
         fun showArts(artworks: List<Artwork>)
-        fun showArtDetails()
+        fun showArtDetails(requestedArtId: String)
 
     }
 
     interface Presenter {
         fun loadArts(forceUpdate: Boolean)
-        fun openArtDetails(requestedTask: Artwork)
+        fun openArtDetails(requestedArtId: Artwork)
     }
 }

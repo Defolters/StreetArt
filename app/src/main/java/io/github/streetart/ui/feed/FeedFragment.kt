@@ -1,6 +1,8 @@
 package io.github.streetart.ui.feed
 
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -13,6 +15,7 @@ import android.view.ViewGroup
 
 import io.github.streetart.R
 import io.github.streetart.network.model.Artwork
+import io.github.streetart.ui.detail.DetailActivity
 
 
 class FeedFragment : Fragment(), FeedContract.View{
@@ -48,17 +51,25 @@ class FeedFragment : Fragment(), FeedContract.View{
 
     override fun showArts(artworks: List<Artwork>) {
         Log.d("TAG", "showArts")
-        val layoutManager = LinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(activity as Context)
         artsRecyclerView.layoutManager = layoutManager
 
-        val feedAdapter = FeedAdapter(context!!, artworks)
+        val feedAdapter = FeedAdapter(context!!, artworks, feedPresenter)
         feedAdapter.notifyDataSetChanged()
         artsRecyclerView.adapter = feedAdapter
     }
 
-    override fun showArtDetails() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showArtDetails(requestedArtId: String) {
+
+        val intent = Intent(context, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.ART_ID, requestedArtId)
+        }
+        startActivity(intent)
+
     }
 
+    companion object {
 
+        fun newInstance() = FeedFragment()
+    }
 }

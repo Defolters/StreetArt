@@ -7,16 +7,16 @@ import io.github.streetart.R
 
 class FeedActivity : AppCompatActivity() {
 
-    var feedFragment: FeedFragment? = null
+//    var feedFragment: FeedFragment? = null
     private val FEED_FRAGMENT_TAG = "feedFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
-        feedFragment = supportFragmentManager.findFragmentByTag(FEED_FRAGMENT_TAG) as? FeedFragment
+        var feedFragment = supportFragmentManager.findFragmentByTag(FEED_FRAGMENT_TAG) as? FeedFragment
         if (feedFragment == null) {
-            feedFragment = FeedFragment()
+            feedFragment = FeedFragment.newInstance()
             supportFragmentManager.beginTransaction()
                 .add(R.id.feed_frame, feedFragment!!, FEED_FRAGMENT_TAG).commit()
         }
