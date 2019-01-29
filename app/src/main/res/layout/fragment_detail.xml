@@ -15,10 +15,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
+                android:textSize="20sp"
                 android:text="@string/name"/>
 
             <TextView
@@ -42,25 +43,62 @@
             android:layout_height="250dp"
             android:scaleType="centerCrop"/>
 
-        <TextView
-            android:id="@+id/description_art"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/description"/>
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/address_art"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_info_24dp"
+                android:tint="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/description_art"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="@string/description"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/description"/>
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_location_on_24dp"
+                android:tint="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/address_art"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="@string/address"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
         <FrameLayout
             android:id="@+id/map_art"
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
-
-
-
     </LinearLayout>
 
 </FrameLayout>
