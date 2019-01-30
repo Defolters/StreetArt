@@ -13,53 +13,13 @@ class ArtsRepository : ArtsDataSource{
 
     var artworks = mutableListOf<Artwork>()
 
-    init {
-        val artwork = Artwork()
-        artwork.name = "title"
-        artwork.id = "12"
-        artwork.description = "Text description"
-        val photo = Photo()
-        photo.image = "https://pp.userapi.com/c845017/v845017636/15a577/Xg5jb04BuNM.jpg"
-        artwork.photos.add(photo)
-        val artist = Artist()
-        artist.name = "Michael"
-        artwork.artists.add(artist)
-        val location = Location()
-        location.address = "NY Street"
-        artwork.location = location
-
-        val artwork2 = Artwork()
-        artwork2.name = "title"
-        artwork2.id = "22"
-        artwork2.description = "Text description"
-        val photo2 = Photo()
-        photo2.image = "https://pp.userapi.com/c848416/v848416693/117555/A-yykNJyYsw.jpg"
-        artwork2.photos.add(photo2)
-        val artist2 = Artist()
-        artist2.name = "Mark"
-        artwork2.artists.add(artist2)
-        val location2 = Location()
-        location2.address = "NY Street"
-        artwork2.location = location2
-
-        val artwork3 = Artwork()
-        artwork3.id = "32"
-        val photo3 = Photo()
-        photo3.image = "https://pp.userapi.com/c850432/v850432621/9e94b/KStEsVr6Ckg.jpg"
-        artwork3.photos.add(photo3)
-
-        artworks.add(artwork)
-        artworks.add(artwork2)
-        artworks.add(artwork3)
-    }
-
     override fun getArts(forceUpdate: Boolean, callback: ArtsDataSource.LoadArtsCallback) {
         if (forceUpdate) {
             loadFromRemote(callback)
         } else {
             loadFromCache(callback)
         }
-        callback.onArtsLoaded(artworks)
+        //callback.onArtsLoaded(artworks)
     }
 
     override fun getArt(id: String, callback: ArtsDataSource.GetArtCallback) {
@@ -103,19 +63,30 @@ class ArtsRepository : ArtsDataSource{
                     return
                 }
 
-                val newArtworks = response.body()!!
-                artworks = newArtworks
+                val newArtworks = processArtworks(response.body()!!)
 
-                Paper.book().write("cache", Gson().toJson(response.body()))
+                artworks = newArtworks
+                Paper.book().write("cache", Gson().toJson(newArtworks))
 
                 callback.onArtsLoaded(newArtworks)
             }
 
             override fun onFailure(call: Call<Artworks>, t: Throwable) {
-                Log.d("ARTS_REPOSITORY", "onFailure\n"+t)
+                Log.d("ARTS_REPOSITORY", "onFailure")
             }
         })
 
+    }
+
+    private fun processArtworks(artworks: Artworks): MutableList<Artwork> {
+        var newArtworks = mutableListOf<Artwork>()
+        artworks.forEach {
+            if (!it.photos.isNullOrEmpty() && !it.photos[0].image.isNullOrBlank()) {
+                it.name.trim()
+                newArtworks.add(it)
+            }
+        }
+        return newArtworks
     }
 
     companion object {

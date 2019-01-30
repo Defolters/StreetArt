@@ -70,8 +70,6 @@ class DetailFragment : Fragment(), DetailContract.View {
             }
             // map set coordinates
         }
-
-
     }
 
     companion object {

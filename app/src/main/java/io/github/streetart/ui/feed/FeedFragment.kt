@@ -49,7 +49,6 @@ class FeedFragment : Fragment(), FeedContract.View{
     }
 
     override fun showArts(artworks: List<Artwork>) {
-        Log.d("TAG", "showArts")
         val layoutManager = LinearLayoutManager(activity as Context)
         artsRecyclerView.layoutManager = layoutManager
 
