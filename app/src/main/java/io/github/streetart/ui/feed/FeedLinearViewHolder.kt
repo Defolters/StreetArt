@@ -1,6 +1,5 @@
 package io.github.streetart.ui.feed
 
-import android.content.Context
 import android.support.v7.widget.CardView
 import android.view.View
 import android.support.v7.widget.RecyclerView
@@ -9,9 +8,8 @@ import android.widget.TextView
 import io.github.streetart.R
 
 
-
-class FeedViewHolder(itemView: View)
-    : RecyclerView.ViewHolder(itemView) {
+class FeedLinearViewHolder(itemView: View)
+    : RecyclerView.ViewHolder(itemView){
 
     val image: ImageView
     val name: TextView

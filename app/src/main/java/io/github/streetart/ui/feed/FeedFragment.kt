@@ -6,9 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +24,7 @@ class FeedFragment : Fragment(), FeedContract.View{
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var feedPresenter: FeedPresenter
+    private var isGrid = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,13 +50,21 @@ class FeedFragment : Fragment(), FeedContract.View{
     }
 
     override fun showArts(artworks: List<Artwork>) {
-        val layoutManager = LinearLayoutManager(activity as Context)
-        artsRecyclerView.layoutManager = layoutManager
+        if (isGrid) {
 
-        val feedAdapter = FeedAdapter(artworks, feedPresenter)
-        feedAdapter.notifyDataSetChanged()
-        artsRecyclerView.adapter = feedAdapter
+            val layoutManager = GridLayoutManager(activity as Context, 3)
+            artsRecyclerView.layoutManager = layoutManager
+            val feedAdapter = FeedGridAdapter(artworks, feedPresenter)
+            feedAdapter.notifyDataSetChanged()
+            artsRecyclerView.adapter = feedAdapter
+        } else {
 
+            val layoutManager = LinearLayoutManager(activity as Context)
+            artsRecyclerView.layoutManager = layoutManager
+            val feedAdapter = FeedLinearAdapter(artworks, feedPresenter)
+            feedAdapter.notifyDataSetChanged()
+            artsRecyclerView.adapter = feedAdapter
+        }
         swipeRefreshLayout.isRefreshing = false
     }
 
@@ -65,6 +74,11 @@ class FeedFragment : Fragment(), FeedContract.View{
             putExtra(DetailActivity.ART_ID, requestedArtId)
         }
         startActivity(intent)
+    }
+
+    fun changeLayout() {
+        isGrid = !isGrid
+        feedPresenter.loadArts(false)
     }
 
     companion object {

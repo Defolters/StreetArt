@@ -3,19 +3,25 @@ package io.github.streetart.ui.detail
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 import io.github.streetart.R
 import io.github.streetart.loadImage
 import io.github.streetart.network.model.Artwork
 
 
-class DetailFragment : Fragment(), DetailContract.View {
+class DetailFragment : Fragment(), DetailContract.View, OnMapReadyCallback {
 
     private lateinit var id: String
     private lateinit var nameTextView: TextView
@@ -23,9 +29,11 @@ class DetailFragment : Fragment(), DetailContract.View {
     private lateinit var descriptionTextView: TextView
     private lateinit var addressTextView: TextView
     private lateinit var imageView: ImageView
-    private lateinit var mapFrame: FrameLayout
 
     private lateinit var detailPresenter: DetailPresenter
+
+    private var mMap: GoogleMap? = null
+    private var mapPosition: LatLng? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +48,15 @@ class DetailFragment : Fragment(), DetailContract.View {
             descriptionTextView = findViewById(R.id.description_art)
             addressTextView = findViewById(R.id.address_art)
             imageView = findViewById(R.id.image_art)
-            mapFrame = findViewById(R.id.map_art)
         }
 
         detailPresenter = DetailPresenter(this)
         detailPresenter.getArtwork(id)
 
         // set up map
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         return view
     }
@@ -64,11 +74,26 @@ class DetailFragment : Fragment(), DetailContract.View {
             }
             if (location != null) {
                 addressTextView.text = location.address
+                mapPosition = LatLng(location.lat, location.lng)//if null
+                Log.d("MAP TEST","showArt()")
+                setMarker()
             }
             if (!photos.isNullOrEmpty()) {
                 imageView.loadImage(photos[0].image)
             }
-            // map set coordinates
+        }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+        Log.d("MAP TEST","onMapReady")
+        mMap = googleMap!!
+        setMarker()
+    }
+
+    private fun setMarker() {
+        if ((mapPosition != null) && (mMap != null)) {
+            (mMap as GoogleMap).addMarker(MarkerOptions().position(mapPosition as LatLng))
+            (mMap as GoogleMap).moveCamera(CameraUpdateFactory.newLatLngZoom(mapPosition, 16f))
         }
     }
 
