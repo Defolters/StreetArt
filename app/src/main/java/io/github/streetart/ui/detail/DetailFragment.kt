@@ -75,7 +75,6 @@ class DetailFragment : Fragment(), DetailContract.View, OnMapReadyCallback {
             if (location != null) {
                 addressTextView.text = location.address
                 mapPosition = LatLng(location.lat, location.lng)//if null
-                Log.d("MAP TEST","showArt()")
                 setMarker()
             }
             if (!photos.isNullOrEmpty()) {
@@ -85,7 +84,6 @@ class DetailFragment : Fragment(), DetailContract.View, OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
-        Log.d("MAP TEST","onMapReady")
         mMap = googleMap!!
         setMarker()
     }

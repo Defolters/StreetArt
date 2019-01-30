@@ -8,9 +8,6 @@ import io.github.streetart.R
 class FeedGridViewHolder (itemView: View)
     : RecyclerView.ViewHolder(itemView) {
 
-    val image: ImageView
+    val image: ImageView = itemView.findViewById(R.id.image_art)
 
-    init {
-        image = itemView.findViewById(R.id.image_art)
-    }
 }

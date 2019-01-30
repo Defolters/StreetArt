@@ -6,7 +6,8 @@
     <item
         android:id="@+id/change_layout_action"
         android:orderInCategory="300"
-        android:title="Layout"
+        android:title="@string/change_layout"
         android:icon="@drawable/ic_grid_on_24dp"
         app:showAsAction="ifRoom"/>
+
 </menu>

@@ -5,4 +5,5 @@
     <string name="author">Неизвестный автор</string>
     <string name="description">Без описания</string>
     <string name="address">Неизвестный адрес</string>
+    <string name="change_layout">Change layout</string>
 </resources>

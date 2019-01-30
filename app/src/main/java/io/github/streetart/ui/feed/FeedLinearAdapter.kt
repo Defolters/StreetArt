@@ -15,6 +15,7 @@ class FeedLinearAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): FeedLinearViewHolder {
         val rootView = LayoutInflater.from(parent.context).inflate(R.layout.art_linear_item, parent, false)
+
         return FeedLinearViewHolder(rootView)
     }
 

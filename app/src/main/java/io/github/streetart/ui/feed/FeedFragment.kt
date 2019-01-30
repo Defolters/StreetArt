@@ -57,6 +57,7 @@ class FeedFragment : Fragment(), FeedContract.View{
             val feedAdapter = FeedGridAdapter(artworks, feedPresenter)
             feedAdapter.notifyDataSetChanged()
             artsRecyclerView.adapter = feedAdapter
+
         } else {
 
             val layoutManager = LinearLayoutManager(activity as Context)
@@ -65,6 +66,7 @@ class FeedFragment : Fragment(), FeedContract.View{
             feedAdapter.notifyDataSetChanged()
             artsRecyclerView.adapter = feedAdapter
         }
+
         swipeRefreshLayout.isRefreshing = false
     }
 

@@ -12,6 +12,7 @@ import retrofit2.Response
 class ArtsRepository : ArtsDataSource{
 
     var artworks = mutableListOf<Artwork>()
+    val retrofit = RetrofitClient()
 
     override fun getArts(forceUpdate: Boolean, callback: ArtsDataSource.LoadArtsCallback) {
         if (forceUpdate) {
@@ -19,7 +20,6 @@ class ArtsRepository : ArtsDataSource{
         } else {
             loadFromCache(callback)
         }
-        //callback.onArtsLoaded(artworks)
     }
 
     override fun getArt(id: String, callback: ArtsDataSource.GetArtCallback) {
@@ -56,7 +56,7 @@ class ArtsRepository : ArtsDataSource{
 
     private fun loadFromRemote(callback: ArtsDataSource.LoadArtsCallback) {
 
-        RetrofitClient().getArtworksEndpoint().getArtworks().enqueue(object: Callback<Artworks> {
+        retrofit.getArtworksEndpoint().getArtworks().enqueue(object: Callback<Artworks> {
             override fun onResponse(call: Call<Artworks>, response: Response<Artworks>) {
 
                 if (response.body() == null) {
@@ -80,12 +80,14 @@ class ArtsRepository : ArtsDataSource{
 
     private fun processArtworks(artworks: Artworks): MutableList<Artwork> {
         var newArtworks = mutableListOf<Artwork>()
+
         artworks.forEach {
             if (!it.photos.isNullOrEmpty() && !it.photos[0].image.isNullOrBlank()) {
                 it.name.trim()
                 newArtworks.add(it)
             }
         }
+
         return newArtworks
     }
 

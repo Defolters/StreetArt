@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.github.streetart.R
-import io.github.streetart.loadImage
 import io.github.streetart.loadImageGlide
 import io.github.streetart.network.model.Artwork
 
@@ -16,6 +15,7 @@ class FeedGridAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): FeedGridViewHolder {
         val rootView = LayoutInflater.from(parent.context).inflate(R.layout.art_grid_item, parent, false)
+
         return FeedGridViewHolder(rootView)
     }
 

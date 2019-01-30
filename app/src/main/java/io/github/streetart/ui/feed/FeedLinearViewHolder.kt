@@ -11,16 +11,9 @@ import io.github.streetart.R
 class FeedLinearViewHolder(itemView: View)
     : RecyclerView.ViewHolder(itemView){
 
-    val image: ImageView
-    val name: TextView
-    val author: TextView
-    val item: CardView
-
-    init {
-        image = itemView.findViewById(R.id.image_art)
-        name = itemView.findViewById(R.id.name_art)
-        author = itemView.findViewById(R.id.author_art)
-        item = itemView.findViewById(R.id.art_item)
-    }
+    val image: ImageView = itemView.findViewById(R.id.image_art)
+    val name: TextView = itemView.findViewById(R.id.name_art)
+    val author: TextView = itemView.findViewById(R.id.author_art)
+    val item: CardView = itemView.findViewById(R.id.art_item)
 
 }
